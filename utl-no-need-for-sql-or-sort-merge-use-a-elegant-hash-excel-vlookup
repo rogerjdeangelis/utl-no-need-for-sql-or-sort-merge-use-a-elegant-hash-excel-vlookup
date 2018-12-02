@@ -52,6 +52,8 @@ EXAMPLE OUTPUT
 PROCESS
 =======
 
+1. HASH (I dont think there is a sipler HASH)
+---------------------------------------------
 
 data want ;
   set have;
@@ -62,10 +64,30 @@ data want ;
     h.definedone();
   end;
   if h.find(key: col2)=0 then new=val; * match col2=col1 get value;
-run;
+run;quit;
+
+
+2. SQL
+------
+
+proc sql;
+  create
+     table want as
+  select
+     l.col
+    ,l.val
+    ,l.col2
+    ,r.val as val2
+  from
+     have l left join have r
+   on
+    l.col2 =r.col
+  order
+    by col
+;quit;
 
 OUTPUT
-
+======
 see above
 
 *                _              _       _
@@ -88,4 +110,7 @@ V4 1 V1
 V5 5 V2
 ;;;;
 run;quit;
+
+
+
 
